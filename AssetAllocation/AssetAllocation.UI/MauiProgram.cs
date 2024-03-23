@@ -1,5 +1,6 @@
 ﻿using AssetAllocation.DB;
 using Microsoft.Extensions.Logging;
+using MudBlazor.Services;
 
 namespace AssetAllocation.UI
 {
@@ -18,6 +19,8 @@ namespace AssetAllocation.UI
                 });
 
             builder.Services.AddMauiBlazorWebView();
+
+            builder.Services.AddMudServices();
 
             builder.Services.AddDb();
 
