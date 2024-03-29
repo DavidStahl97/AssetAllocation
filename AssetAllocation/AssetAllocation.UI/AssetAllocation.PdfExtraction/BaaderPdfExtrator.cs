@@ -35,13 +35,13 @@ namespace AssetAllocation.PdfExtraction
             {
                 var page = pdfDoc.GetPage(pageIndex);
 
-
+                var assets = ExtractAssets(page);
             }
 
             return null;
         }        
 
-        private IReadOnlyList<Asset> ExtractAssets(PdfPage page)
+        private List<Asset> ExtractAssets(PdfPage page)
         {
             var assetColumText = page.ExtractText(new BoundingBoxInPercentage(
                 X: settings.MarginLeft,
@@ -54,13 +54,29 @@ namespace AssetAllocation.PdfExtraction
             var assets = new List<Asset>();
 
             string assetDescription = string.Empty;
-            string? isin;
 
             foreach (var line in lines)
             {
+                var isISIN = line.Length >= 12 && 
+                    LuhnAlgorithm.IsValidISIN(line[..12]);
 
+                if (!isISIN)
+                {
+                    assetDescription += string.IsNullOrEmpty(assetDescription) ?
+                        line : $" {line}";
+
+                    continue;
+                }
+
+                var asset = new Asset(
+                    ISIN: line[..12],
+                    Description: assetDescription);
+
+                assets.Add(asset);
+                assetDescription = string.Empty;
             }
-            return null;
+
+            return assets;
         }
     }
 }
