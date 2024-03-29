@@ -3,13 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetAllocation.UI", "AssetAllocation.UI\AssetAllocation.UI.csproj", "{0E045CCA-072C-48CF-943E-67246A710F5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.UI", "AssetAllocation.UI\AssetAllocation.UI.csproj", "{0E045CCA-072C-48CF-943E-67246A710F5C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{72700DA6-DAF2-4100-8473-DE6B05B18901}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetAllocation.DB", "Database\AssetAllocation.DB\AssetAllocation.DB.csproj", "{4E836883-BDC4-4EF1-83A5-8265DAE262D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.DB", "Database\AssetAllocation.DB\AssetAllocation.DB.csproj", "{4E836883-BDC4-4EF1-83A5-8265DAE262D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetAllocation.DB.Migrations", "Database\AssetAllocation.DB.Migrations\AssetAllocation.DB.Migrations.csproj", "{FC528E4D-A1E7-414E-8DA6-E4D1BDB7D13C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.DB.Migrations", "Database\AssetAllocation.DB.Migrations\AssetAllocation.DB.Migrations.csproj", "{FC528E4D-A1E7-414E-8DA6-E4D1BDB7D13C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.PdfExtraction", "AssetAllocation.UI\AssetAllocation.PdfExtraction\AssetAllocation.PdfExtraction.csproj", "{9D58F4A9-7BF7-4A33-8D09-6E0064D173ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.Domain", "AssetAllocation.Domain\AssetAllocation.Domain.csproj", "{411204E8-44CE-4695-BA1C-4B4C9FEE1C57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetAllocation.PdfExtraction.Tests", "AssetAllocation.PdfExtraction.Tests\AssetAllocation.PdfExtraction.Tests.csproj", "{A741FC7F-496E-4109-87E0-E826FB872CF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +37,18 @@ Global
 		{FC528E4D-A1E7-414E-8DA6-E4D1BDB7D13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC528E4D-A1E7-414E-8DA6-E4D1BDB7D13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC528E4D-A1E7-414E-8DA6-E4D1BDB7D13C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D58F4A9-7BF7-4A33-8D09-6E0064D173ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D58F4A9-7BF7-4A33-8D09-6E0064D173ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D58F4A9-7BF7-4A33-8D09-6E0064D173ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D58F4A9-7BF7-4A33-8D09-6E0064D173ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{411204E8-44CE-4695-BA1C-4B4C9FEE1C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{411204E8-44CE-4695-BA1C-4B4C9FEE1C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{411204E8-44CE-4695-BA1C-4B4C9FEE1C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{411204E8-44CE-4695-BA1C-4B4C9FEE1C57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A741FC7F-496E-4109-87E0-E826FB872CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A741FC7F-496E-4109-87E0-E826FB872CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A741FC7F-496E-4109-87E0-E826FB872CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A741FC7F-496E-4109-87E0-E826FB872CF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

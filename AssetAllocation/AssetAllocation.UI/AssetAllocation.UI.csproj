@@ -74,6 +74,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.14" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
         <PackageReference Include="MudBlazor" Version="6.19.1" />
+        <PackageReference Include="OneOf" Version="3.0.263" />
+        <PackageReference Include="OneOf.SourceGenerator" Version="3.0.263" />
     </ItemGroup>
 
     <ItemGroup>
