@@ -1,4 +1,4 @@
-﻿namespace AssetAllocation.Domain.Models
+﻿namespace AssetAllocation.Domain.Models.Baader
 {
     public record Security(
         Asset Asset,

@@ -1,17 +1,18 @@
-﻿using AssetAllocation.Domain.Models;
+﻿using AssetAllocation.Domain.Models.Baader;
+using AssetAllocation.PdfExtraction.Results;
 using CommunityToolkit.Diagnostics;
 using iText.Kernel.Pdf;
 using OneOf;
 using System.Collections.Immutable;
 using System.Globalization;
 
-namespace AssetAllocation.PdfExtraction
+namespace AssetAllocation.PdfExtraction.Baader
 {
-    public class BaaderPdfExtractor(PdfExtractionSettings settings) : IPdfExtractor
+    public class BaaderPdfExtractor(BaaderPdfSettings settings) : IBaaderPdfExtractor
     {
         record AssetCell(Asset Asset, BoundingBoxInPercentage BoundingBox);
 
-        public async Task<PdfExtractionResult> ReadPdfFileAsync(string filePath)
+        public async Task<BaaderExtractionResult> ReadPdfFileAsync(string filePath)
             => await Task.Run(() =>
             {
                 try
@@ -24,7 +25,7 @@ namespace AssetAllocation.PdfExtraction
                 }
             });
 
-        private PdfExtractionResult ReadPdfFile(string filePath)
+        private BaaderExtractionResult ReadPdfFile(string filePath)
         {
             using var reader = new PdfReader(filePath);
             using var pdfDoc = new PdfDocument(reader);
@@ -45,7 +46,7 @@ namespace AssetAllocation.PdfExtraction
 
                 var assetCells = ExtractAssets(page);
 
-                foreach (var assetCell in assetCells) 
+                foreach (var assetCell in assetCells)
                 {
                     ExtractSecurity(page, assetCell).Switch(
                         securities.Add,
@@ -54,7 +55,7 @@ namespace AssetAllocation.PdfExtraction
             }
 
             return new ExtractSecurities(securities, failedSecurities);
-        }        
+        }
 
         private List<AssetCell> ExtractAssets(PdfPage page)
         {
@@ -78,15 +79,15 @@ namespace AssetAllocation.PdfExtraction
                     leftX = line.StartPoint.X;
                 }
 
-                if (line.EndPoint.X > rightX) 
-                { 
+                if (line.EndPoint.X > rightX)
+                {
                     rightX = line.EndPoint.X;
                 }
 
                 string? isin = line.Text.Length >= 12 ?
                     line.Text[..12] : null;
 
-                var isISIN = isin is not null && 
+                var isISIN = isin is not null &&
                     LuhnAlgorithm.IsValidISIN(isin);
 
                 if (!isISIN)

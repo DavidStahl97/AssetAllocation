@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 #nullable disable
 
-namespace AssetAllocation.PdfExtraction
+namespace AssetAllocation.PdfExtraction.Baader
 {
-    public class PdfExtractionSettings
+    public class BaaderPdfSettings
     {
         [Required]
         public int NumberOfPageSkips { get; set; } = 1;
