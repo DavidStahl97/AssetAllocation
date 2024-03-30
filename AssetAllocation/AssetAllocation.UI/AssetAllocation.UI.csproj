@@ -79,7 +79,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\AssetAllocation.Domain\AssetAllocation.Domain.csproj" />
       <ProjectReference Include="..\Database\AssetAllocation.DB\AssetAllocation.DB.csproj" />
+      <ProjectReference Include="..\AssetAllocation.PdfExtraction\AssetAllocation.PdfExtraction.csproj" />
     </ItemGroup>
 
 </Project>

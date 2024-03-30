@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AssetAllocation.UI\AssetAllocation.PdfExtraction\AssetAllocation.PdfExtraction.csproj" />
+    <ProjectReference Include="..\AssetAllocation.PdfExtraction\AssetAllocation.PdfExtraction.csproj" />
   </ItemGroup>
 
   <ItemGroup>

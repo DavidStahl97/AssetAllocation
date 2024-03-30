@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AssetAllocation.Domain\AssetAllocation.Domain.csproj" />
+    <ProjectReference Include="..\AssetAllocation.Domain\AssetAllocation.Domain.csproj" />
   </ItemGroup>
 
 </Project>

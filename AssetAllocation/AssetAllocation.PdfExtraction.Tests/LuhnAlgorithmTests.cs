@@ -38,12 +38,14 @@ namespace AssetAllocation.PdfExtraction.Tests
             int[] ExpectedDigits);
 
         public static TheoryData<ConvertDigitData> GetConvertDigitData()
+#pragma warning disable IDE0028 // Simplify collection initialization
             => new()
             {
                 new ConvertDigitData(
                     Text: "DE000BAY0017",
                     ExpectedDigits: [1, 3, 1, 4, 0, 0, 0, 1, 1, 1, 0, 3, 4, 0, 0, 1, 7])
             };
+#pragma warning restore IDE0028 // Simplify collection initialization
 
         [Theory]
         [MemberData(nameof(GetConvertDigitData))]

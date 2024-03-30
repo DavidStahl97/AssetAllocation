@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.DB", "Datab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.DB.Migrations", "Database\AssetAllocation.DB.Migrations\AssetAllocation.DB.Migrations.csproj", "{FC528E4D-A1E7-414E-8DA6-E4D1BDB7D13C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.PdfExtraction", "AssetAllocation.UI\AssetAllocation.PdfExtraction\AssetAllocation.PdfExtraction.csproj", "{9D58F4A9-7BF7-4A33-8D09-6E0064D173ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.PdfExtraction", "AssetAllocation.PdfExtraction\AssetAllocation.PdfExtraction.csproj", "{9D58F4A9-7BF7-4A33-8D09-6E0064D173ED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetAllocation.Domain", "AssetAllocation.Domain\AssetAllocation.Domain.csproj", "{411204E8-44CE-4695-BA1C-4B4C9FEE1C57}"
 EndProject
