@@ -2,6 +2,7 @@
 using iText.Forms.Xfdf;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace AssetAllocation.PdfExtraction
 {
     public static class LuhnAlgorithm
     {
-        public static bool IsValidISIN(string isin)
+        public static bool IsValidISIN([DisallowNull] string isin)
         {
             if (isin.Length is not 12)
             {

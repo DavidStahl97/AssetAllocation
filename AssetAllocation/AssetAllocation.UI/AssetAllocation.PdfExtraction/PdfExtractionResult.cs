@@ -10,8 +10,27 @@ using System.Threading.Tasks;
 namespace AssetAllocation.PdfExtraction
 {
     [GenerateOneOf]
-    public partial class PdfExtractionResult : OneOfBase<ImmutableArray<Security>, ExtractionError>
+    public partial class PdfExtractionResult : OneOfBase<
+        ExtractSecurities, 
+        ExtractionError>
     {
+    }
+
+    public record ExtractSecurities(
+        IReadOnlyList<Security> Securities,
+        IReadOnlyList<ExtractSecurityFailed> FailedSecurities);
+    
+    public record ExtractSecurityFailed(
+        Asset Asset,
+        Column FailedColumn);
+
+    public enum Column
+    {
+        Quantity = 0,
+        PruchasePrice = 1,
+        ClosingPrice = 2,
+        CurrentValue = 3,
+        Profit = 4,
     }
 
     [GenerateOneOf]

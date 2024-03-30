@@ -9,23 +9,22 @@ using System.Threading.Tasks;
 using iText.Kernel.Geom;
 using System.Reflection;
 using CommunityToolkit.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AssetAllocation.PdfExtraction
 {
-    public record BoundingBoxInPercentage(float X, float Y, float Width, float Height);
+    public record TextLine(string Text, 
+        System.Numerics.Vector2 StartPoint,
+        System.Numerics.Vector2 EndPoint);
 
     public static class ReaderExtensions
     {
         private static readonly FieldInfo _locationalResultField = typeof(LocationTextExtractionStrategy).GetField("locationalResult", BindingFlags.NonPublic | BindingFlags.Instance)!;
 
-        public static string ExtractText(this PdfPage page, BoundingBoxInPercentage boundingBox)
+        public static List<TextLine> ExtractText(this PdfPage page, BoundingBoxInPercentage boundingBox)
         {
-            var textEventListener = new LocationTextExtractionStrategy();
-            PdfTextExtractor.GetTextFromPage(page, textEventListener);
-
             var rectangle = CalculateRectangle(page, boundingBox);
-
-            var extractedText = textEventListener.GetResultantText(rectangle);
+            var extractedText = GetResultantText(page, rectangle);
             return extractedText;
         }
 
@@ -48,29 +47,60 @@ namespace AssetAllocation.PdfExtraction
             return new Rectangle(x, inverseY, width, height);
         }
 
-        private static string GetResultantText(this LocationTextExtractionStrategy strategy, Rectangle rect)
+        private static List<TextLine> GetResultantText(PdfPage page, Rectangle rect)
         {
+            var strategy = new LocationTextExtractionStrategy();
+            PdfTextExtractor.GetTextFromPage(page, strategy);
+
             var locationalResult = (IList<TextChunk>)_locationalResultField.GetValue(strategy)!;
-            var nonMatching = new List<TextChunk>();
+            var lines = new List<List<TextChunk>>();
             foreach (TextChunk chunk in locationalResult)
             {
                 ITextChunkLocation location = chunk.GetLocation();
                 Vector start = location.GetStartLocation();
                 Vector end = location.GetEndLocation();
-                if (!rect.IntersectsLine(start.Get(Vector.I1), start.Get(Vector.I2), end.Get(Vector.I1), end.Get(Vector.I2)))
+                if (rect.IntersectsLine(start.Get(Vector.I1), start.Get(Vector.I2), end.Get(Vector.I1), end.Get(Vector.I2)))
                 {
-                    nonMatching.Add(chunk);
+                    var line = lines.Find(x => x[0].GetLocation().SameLine(chunk.GetLocation()));
+
+                    if (line is null)
+                    {
+                        lines.Add([chunk]);
+                    }
+                    else
+                    {
+                        line.Add(chunk);
+                    }
                 }
             }
-            nonMatching.ForEach(c => locationalResult.Remove(c));
-            try
+
+            var textLines = lines.Select(line =>
             {
-                return strategy.GetResultantText();
-            }
-            finally
-            {
-                nonMatching.ForEach(c => locationalResult.Add(c));
-            }
+                var location = line[0].GetLocation();
+                var startPoint = location.GetStartLocation().ConvertPointToPercentage(page);
+                var endPoint = location.GetEndLocation().ConvertPointToPercentage(page);
+
+                var text = string.Join(' ', line.Select(x => x.GetText()));
+                return new TextLine(text, startPoint, endPoint);
+            })
+                .OrderBy(x => x.StartPoint.Y)
+                .ToList();
+
+            return textLines;
+        }
+
+        private static System.Numerics.Vector2 ConvertPointToPercentage(this Vector point,
+            PdfPage page)
+        {
+            var pageRectangle = page.GetPageSize();
+            var pageWidth = pageRectangle.GetWidth();
+            var pageHeight = pageRectangle.GetHeight();
+
+            var x = (point.Get(0) / pageWidth) * 100;
+            var y = (point.Get(1) / pageHeight) * 100;
+            var invertedY = 100 - y;
+
+            return new System.Numerics.Vector2(x, invertedY);
         }
     }
 }
